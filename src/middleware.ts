@@ -12,8 +12,9 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Exclude specific paths like `/api/webhooks/clerk` from Clerk's middleware
+    // Skip Next.js internals and all static files, unless found in search params
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(?!/webhooks/clerk)(.*)', // Bypasses Clerk protection for `/api/webhooks/clerk`
+    // Always run for API routes
+    '/(api|trpc)(.*)',
   ],
-};
+}
